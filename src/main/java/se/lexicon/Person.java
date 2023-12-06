@@ -44,7 +44,7 @@ public class Person {
       if (email == null) throw new IllegalArgumentException("email was null");
      this.email = email;
    }
-   public String getPersonInfo(){
+   public String getSummary(){
       return "{ " + firstName + " " + lastName + ", email: " + email + ", id: " + id + " }";
    }
 }
