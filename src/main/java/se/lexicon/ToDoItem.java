@@ -1,2 +1,4 @@
-package se.lexicon;public class Todoitem {
+package se.lexicon;
+
+public class ToDoItem {
 }
