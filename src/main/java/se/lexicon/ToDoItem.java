@@ -10,11 +10,10 @@ public class ToDoItem {
     private boolean done;
     private Person creator;
 
-    public ToDoItem(String title, String description, LocalDate deadLine, Person creator, int id) {
+    public ToDoItem(String title, String description, LocalDate deadLine, Person creator) {
         setTaskDescription(description);
         setCreator(creator);
         setTitle(title);
-        setId(id);
         setDeadLine(deadLine);
     }
     public Person getCreator() {return creator;}
@@ -28,7 +27,7 @@ public class ToDoItem {
             this.description = description;
     }
 
-    public void setId(int id) {this.id = id;}
+    //public void setId(int id) {this.id = id;}
 
     public void setTitle(String title) {
         if (title == null) throw new IllegalArgumentException("title was null");
@@ -36,8 +35,8 @@ public class ToDoItem {
     }
 
     public void setDeadLine(LocalDate deadLine) {
-        if (deadLine == null) throw new IllegalArgumentException("deadline was null");
-        this.deadLine = deadLine;
+        if(deadLine == null ||deadLine.isAfter(LocalDate.now())) throw new IllegalArgumentException("DeadLine was null or has passed");
+        else this.deadLine = deadLine;
     }
 
     public void setCreator(Person creator) {
@@ -48,13 +47,18 @@ public class ToDoItem {
     public void setDone(boolean done) {this.done = done;}
 
     public boolean isDone() {return done;}
-
     public boolean isOverdue() {return deadLine.isAfter(LocalDate.now());}
-    public String getTaskInfo () {
-            return "id: " + getId() + "\n" +
-                    "Title: " + getTitle() + "\n" +
-                    "Description " + getTaskDescription() + "\n" +
-                    "Deadline " + getDeadLine() + "\n" +
-                    "Creator " + getCreator().getFirstName() + " " + getCreator().getLastName();
+    public String getSummary () {
+        return "id: " + getId() + "\n" +
+                "Title: " + getTitle() + "\n" +
+                "Description " + getTaskDescription() + "\n" +
+                "Deadline " + getDeadLine() + "\n" +
+                "Creator " + getCreator().getFirstName() + " " + getCreator().getLastName();
+    }
+
+        public static int createUniqueId () {
+            int uniqueId = taskCreated;
+            taskCreated++;
+            return uniqueId;
         }
     }

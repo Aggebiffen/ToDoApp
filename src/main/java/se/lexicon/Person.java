@@ -1,17 +1,18 @@
 package se.lexicon;
 
 public class Person {
+  private static int personsCreated;
   private int id;
   private String firstName;
   private String lastName;
   private String email;
 
 
-  public Person (int id,String firstName, String lastName, String email){
+  public Person (String firstName, String lastName, String email){
      setFirstname(firstName);
      setLastName(lastName);
      setEmail(email);
-     setId(id);
+     id = createUniqueId();
   }
 
    public void setFirstname (String firstName){
@@ -31,11 +32,11 @@ public class Person {
    public int getId() {
       return id;
    }
-   public void setId(int id) {
-      if (id <0) {
-          throw new IllegalArgumentException("Id cannot be negative");
-      }
-      this.id = id;
+
+   public static int createUniqueId(){
+      int uniqueId = personsCreated;
+      personsCreated++;
+      return  uniqueId;
    }
 
    public String getEmail() {
