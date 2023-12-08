@@ -5,69 +5,56 @@ import java.time.LocalDate;
 public class ToDoItem {
     private int id;
     private String title;
-    private String taskDescription;
+    private String description;
     private LocalDate deadLine;
     private boolean done;
     private Person creator;
 
-    public ToDoItem(String title, String taskDescription,LocalDate deadLine,Person creator, int id) {
-       setTaskDescription(taskDescription);
-       setCreator(creator);
-       setTitle(title);
-       setId(id);
-       setDeadLine(deadLine);
+    public ToDoItem(String title, String description, LocalDate deadLine, Person creator, int id) {
+        setTaskDescription(description);
+        setCreator(creator);
+        setTitle(title);
+        setId(id);
+        setDeadLine(deadLine);
+    }
+    public Person getCreator() {return creator;}
+    public int getId() {return id;}
+    public String getTitle() {return title;}
+    public LocalDate getDeadLine() {return deadLine;}
+    public String getTaskDescription() {return description;}
+
+    public void setTaskDescription (String description) {
+            if (description == null) throw new IllegalArgumentException("description was null");
+            this.description = description;
     }
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
+    public void setId(int id) {this.id = id;}
 
     public void setTitle(String title) {
         if (title == null) throw new IllegalArgumentException("title was null");
         this.title = title;
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
-    }
-
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
-    }
-
-    public LocalDate getDeadLine() {
-        return deadLine;
-    }
-
     public void setDeadLine(LocalDate deadLine) {
+        if (deadLine == null) throw new IllegalArgumentException("deadline was null");
         this.deadLine = deadLine;
     }
 
-    public boolean isDone() {
-        return done;
-    }
-
-    public void setDone(boolean done) {
-        this.done = done;
-    }
-
-    public Person getCreator() {
-        return creator;
-    }
-
     public void setCreator(Person creator) {
+        if (creator == null) throw new IllegalArgumentException("creator was null");
         this.creator = creator;
     }
-    public String getTaskInfo(){
-        return "{ " + title + "Task description: " + taskDescription + "Person: "+ creator + "id:" + id;
+
+    public void setDone(boolean done) {this.done = done;}
+
+    public boolean isDone() {return done;}
+
+    public boolean isOverdue() {return deadLine.isAfter(LocalDate.now());}
+    public String getTaskInfo () {
+            return "id: " + getId() + "\n" +
+                    "Title: " + getTitle() + "\n" +
+                    "Description " + getTaskDescription() + "\n" +
+                    "Deadline " + getDeadLine() + "\n" +
+                    "Creator " + getCreator().getFirstName() + " " + getCreator().getLastName();
+        }
     }
-}
