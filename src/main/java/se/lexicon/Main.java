@@ -1,32 +1,40 @@
 package se.lexicon;
 
 
-import java.time.LocalDate;
+import se.lexicon.model.AppUser;
+import se.lexicon.model.Person;
+import se.lexicon.model.ToDoItem;
+import se.lexicon.model.ToDoItemTask;
+import se.lexicon.sequencer.Sequencer;
+import se.lexicon.util.AppRole;
+import se.lexicon.util.SequencerEnum;
 
-import static se.lexicon.ToDoItem.createUniqueId;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        Person august = new Person("August", "Brusbäck", "aggebrusback@gmail.com");
-        Person daniel = new Person("Daniel", "Carlsson", "hej123@gmail.com");
-        ToDoItem item = new ToDoItem("Chores", "Do the dishes", LocalDate.now(), august);
-        ToDoItem item1 = new ToDoItem("Chores", "Do the dishes", LocalDate.now(), daniel);
-        ToDoItemTask itemTask = new ToDoItemTask(item, august);
-        ToDoItemTask itemTask2 = new ToDoItemTask(item1, daniel);
 
-        AppUser user = new AppUser("August", "Hej", AppRole.ROLE_APP_ADMIN);
-        AppUser user1 = new AppUser("daniel", "qwerty", AppRole.ROLE_APP_USER);
-        AppUser user2 = new AppUser("Kent", "aaaaa", AppRole.ROLE_APP_ADMIN);
-        System.out.println(user);
-        System.out.println(itemTask);
-        System.out.println("\n");
+        Person August = new Person("August", "Klas", "aggebrusback@gmail.com", Sequencer.getNextId(SequencerEnum.PERSON),new AppUser("August", "qwerty123", AppRole.ROLE_APP_ADMIN));
+        ToDoItem Item = new ToDoItem("Chores", "Do the dishes", LocalDate.now(),August,Sequencer.getNextId(SequencerEnum.TODOITEM));
+        ToDoItemTask itemTask = new ToDoItemTask(Item, August, Sequencer.getNextId(SequencerEnum.TODOITEMTASK));
+        AppUser user = new AppUser("August", "qwerty", AppRole.ROLE_APP_ADMIN);
+
+        Person Daniel = new Person("Daniel", "Carlsson", "Hej123@gmail.com", Sequencer.getNextId(SequencerEnum.PERSON),new AppUser("Daniel", "hej123", AppRole.ROLE_APP_USER));
+        ToDoItem Item1 = new ToDoItem("Chores", "Do the dishes", LocalDate.now(),Daniel,Sequencer.getNextId(SequencerEnum.TODOITEM));
+        ToDoItemTask itemTask1 = new ToDoItemTask(Item1, Daniel, Sequencer.getNextId(SequencerEnum.TODOITEMTASK));
+        AppUser user1 = new AppUser("Daniel", "qwerty", AppRole.ROLE_APP_USER);
+
         System.out.println(user1);
-
-        System.out.println(itemTask2);
-        System.out.println("\n");
-        System.out.println(user2);
-        System.out.println(item1);
-
+        System.out.println("-------");
+        System.out.println(itemTask1);
+        System.out.println("-------");
+        System.out.println(Daniel);
+        System.out.println("-------");
+        System.out.println(user);
+        System.out.println("-------");
+        System.out.println(itemTask);
+        System.out.println("-------");
+        System.out.println(August);
     }
 }
 

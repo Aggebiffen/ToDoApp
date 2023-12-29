@@ -1,5 +1,7 @@
-package se.lexicon;
+package se.lexicon.model;
 
+
+import se.lexicon.util.AppRole;
 
 import java.util.Objects;
 
@@ -8,10 +10,12 @@ public class AppUser {
     private String password;
     private AppRole role;
 
+    //getters
     public String getUserName() {return userName;}
     public String getPassword() {return password;}
     public AppRole getRole() {return role;}
 
+    //setters
     public void setRole(AppRole role) {
         if (role == null) throw new IllegalArgumentException("Role was null");
         this.role = role;

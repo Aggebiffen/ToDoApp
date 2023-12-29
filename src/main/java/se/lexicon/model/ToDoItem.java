@@ -1,11 +1,9 @@
-package se.lexicon;
+package se.lexicon.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class ToDoItem {
-
-    static int taskCreated;
     private int id;
     private String title;
     private String description;
@@ -14,41 +12,43 @@ public class ToDoItem {
     private Person creator;
 
     //getters
-    public Person getCreator() {return creator;}
-    public int getId() {return id;}
-    public String getTitle() {return title;}
-    public LocalDate getDeadLine() {return deadLine;}
-    public String getTaskDescription() {return description;}
+    public int getId(){return id;}
+    public String getTitle(){return title;}
+    public String getTaskDescription(){ return description;}
+    public LocalDate getDeadLine(){return deadLine;}
+    public Person getCreator(){return creator;}
+    public boolean isOverdue(){ return deadLine.isAfter(LocalDate.now()); }
+    public boolean isDone(){return done;}
 
     //setters
     public void setTaskDescription (String description) {
         if (description == null) throw new IllegalArgumentException("description was null");
-        this.description = description;}
-
+        this.description = description;
+    }
     public void setTitle(String title) {
         if (title == null) throw new IllegalArgumentException("title was null");
-        this.title = title;}
-
+        this.title = title;
+    }
     public void setDeadLine(LocalDate deadLine) {
-        if(deadLine == null ||deadLine.isAfter(LocalDate.now())) throw new IllegalArgumentException("DeadLine was null or has passed");
-        else this.deadLine = deadLine;}
-
+        if(deadLine == null ||deadLine.isBefore(LocalDate.now())) throw new IllegalArgumentException("DeadLine was null or has passed");
+        else this.deadLine = deadLine;
+    }
     public void setCreator(Person creator) {
         if (creator == null) throw new IllegalArgumentException("creator was null");
-        this.creator = creator;}
-
+        this.creator = creator;
+    }
     public void setDone(boolean done) {this.done = done;}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public boolean isDone() {return done;}
-    public boolean isOverdue() {return deadLine.isAfter(LocalDate.now());}
-
-    public ToDoItem(String title, String description, LocalDate deadLine, Person creator) {
+    public ToDoItem(String title, String description, LocalDate deadLine, Person creator, int id) {
         setDone(false);
         setTaskDescription(description);
         setCreator(creator);
         setTitle(title);
         setDeadLine(deadLine);
-        id = createUniqueId();
+        setId(id);
     }
     @Override
     public String toString() {
@@ -72,9 +72,5 @@ public class ToDoItem {
         return Objects.hash(id, title, description, deadLine);
     }
 
-    public static int createUniqueId () {
-        int uniqueId = taskCreated;
-        taskCreated++;
-        return uniqueId;
-    }
+
 }
