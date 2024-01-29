@@ -41,7 +41,7 @@ public class ToDoItemTaskDAOCollection implements ToDoItemTaskDAOImpl {
     @Override
     public Collection<ToDoItemTask> findByPersonId(int id) {
         return list.stream()
-                .filter(task -> task.getAssignee() != null && task.getAssignee().getId() == id)
+                .filter(task -> task.getAssignee() != null && task.getAssignee().getPerson_id() == id)
                 .collect(Collectors.toList());
     }
 

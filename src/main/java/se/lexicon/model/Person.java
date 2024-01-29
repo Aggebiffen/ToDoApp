@@ -1,83 +1,54 @@
 package se.lexicon.model;
 
-import java.util.Objects;
+import se.lexicon.util.StringHelper;
 
 public class Person {
 
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private AppUser credentials;
+    private int person_id;
+    private String first_Name;
+    private String last_Name;
 
-    //Setters
-    public void setEmail(String email) {
-        if (email == null) throw new IllegalArgumentException("email was null");
-        this.email = email;
-    }
-    public void setCredentials(AppUser credentials) {
-        if (credentials == null) throw new IllegalArgumentException("Credentials was null");
-        this.credentials = credentials;
-    }
-    public void setFirstname (String firstName){
-        if (firstName == null) throw new IllegalArgumentException("First name was null");
-        this.firstName =firstName;
-    }
-    public void setLastName (String lastName) {
-        if (lastName == null) throw new IllegalArgumentException("Lastname was null");
-        this.lastName =lastName;
-    }
-    public void setId (int id){this.id = id;}
-
-    //Getters
-    public AppUser getCredentials() {return credentials;
-    }
-    public String getFirstName() {
-        return firstName;
+    public Person(String first_Name, String last_Name) {
+        this.first_Name = first_Name;
+        this.last_Name = last_Name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-    public int getId() {
-        return id;
-    }
-    public String getEmail() {
-        return email;
+    public int getPerson_id() {
+        return person_id;
     }
 
-    //Constructor
-    public Person (String firstName, String lastName, String email, int id,AppUser credentials){
-        setFirstname(firstName);
-        setLastName(lastName);
-        setEmail(email);
-        setId(id);
-        setCredentials(credentials);
+    public void setPerson_id(int person_id) {
+        this.person_id = person_id;
     }
 
-    /*public Person (String firstName, String lastName, String email, int id, AppUser credentials){
-       // this(firstName, lastName, email, id);
-        setCredentials(credentials);
-    }*/
+    public String getFirst_Name() {
+        return first_Name;
+    }
+
+    public void setFirst_Name(String first_Name) {
+        if (StringHelper.isNullOrEmpty(first_Name)) throw new IllegalArgumentException("First name was null");
+        this.first_Name = first_Name;
+    }
+
+    public String getLast_Name() {
+        return last_Name;
+    }
+
+    public void setLast_Name(String last_Name) {
+        if (StringHelper.isNullOrEmpty(last_Name)) throw new IllegalArgumentException("Lastname was null");
+        this.last_Name = last_Name;
+    }
 
     @Override
     public String toString() {
-        return  "id:" + getId() + "\n" +
-                "Name:" + getFirstName() + " " + getLastName() + "\n" +
-                "Email:" + getEmail() + " " + "\n" +
-                "Credentials:" + getCredentials();
+        return "Person{" +
+                "person_id=" + person_id +
+                ", first_Name='" + first_Name + '\'' +
+                ", last_Name='" + last_Name + '\'' +
+                '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return id == person.id && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(email, person.email) && Objects.equals(credentials, person.credentials);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email,credentials);
+    public String getFullName() {
+        return first_Name + " " + last_Name;
     }
 }
